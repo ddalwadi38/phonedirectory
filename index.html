@@ -1,0 +1,123 @@
+<html>
+    <head>
+        <style>
+            .fontstyle{
+                font-family:cursive;
+                text-align: center;
+            }
+            .button1{
+                padding: 15px 32px;
+                background-color: crimson;
+                color : white;
+                border-radius: 8px;
+                text-align: center;
+                border: none;
+                cursor: pointer;
+            }
+            .button2{
+                padding: 15px 32px;
+                background-color: black;
+                color : white;
+                border-radius: 8px;
+                text-align: center;
+                border: none;
+                cursor: pointer;
+            }
+            .button3{
+                padding: 8px 15px;
+                background-color: white;
+                color : crimson;
+                border-radius: 8px;
+                text-align: center;
+                border: none;
+                cursor: pointer;
+            }
+            table{
+                   table-layout: auto;
+                   width: 100% ;
+                   border-collapse: collapse;
+                   border: 1px solid black;
+    
+            }
+            th,td {
+                 border: 1px solid black;
+                 width:30%;
+                 text-align: center;
+            }
+            .textfield{
+                padding : 10px 20px;
+                margin-top: 20px;
+                text-align: center;
+                border:1px solid black;
+                border-radius: 2px;
+            }
+        </style>
+    </head>
+    <body class="fontstyle">
+        <!--Title Name-->
+        <h1 class="fontstyle">PHONE DIRECTORY</h1>
+        <!--Add Button-->
+        <div id="original" style="text-align: center;">
+            <input type="button" class="button1" value="ADD" onclick="addDetails()">
+            <br><br><br><br>
+            <table id="detailTable" align="center">
+                    <tr>
+                      <th>Name</th>
+                      <th>Phone Numeber</th>
+                      <th>Delete Contact</th>
+                    </tr>
+            </table>
+        </div>
+
+        <div hidden id="details" style="text-align: center;">
+            <input type="button" class="button2" value="BACK" onclick="originalPage()"><br>
+            <input type="text" class="textfield" placeholder="Name" id="name" ><br>
+            <input type="number" class="textfield" placeholder="Phone Number" id="phone" ><br><br><br><br>
+            <input type="button" class="button2" value="SUBMIT" onclick="addData()">
+        </div>
+
+        <script>
+                var no;
+                function addDetails() {
+                  document.getElementById("details").hidden=false;
+                  document.getElementById("original").hidden=true;
+                }
+
+                function originalPage(){
+                  document.getElementById("details").hidden=true;
+                  document.getElementById("original").hidden=false;
+                }
+
+                function addData(){
+                    if(document.getElementById("name").value==="" || document.getElementById("phone").value===""){
+                        alert("Incomplete Details");
+                    }
+                    else{
+                        var table = document.getElementById("detailTable");
+                        no = table.rows.length;
+                        var row = table.insertRow(no);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+
+                        cell1.innerHTML = document.getElementById("name").value;
+                        cell2.innerHTML = document.getElementById("phone").value;
+                        cell3.innerHTML = "<input type='button' value='DELETE' class='button3' onclick='del(this)'>";
+
+                
+                        document.getElementById("details").hidden=true;
+                        document.getElementById("original").hidden=false;
+                        document.getElementById("name").value="";
+                        document.getElementById("phone").value="";
+                    }
+                }
+
+                function del(num){
+                    var i = num.parentNode.parentNode.rowIndex;
+                    document.getElementById("detailTable").deleteRow(i);
+                }
+                
+        </script>
+
+    </body>
+</html>
